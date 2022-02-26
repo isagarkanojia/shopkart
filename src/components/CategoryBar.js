@@ -1,24 +1,11 @@
-import { useEffect, useState } from "react";
+import useApi from "../hooks/useApi";
 
 function CategoryBar(props) {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setLoading] = useState(false);
-  const [loadError, setError] = useState(false);
   const { selectedCategory, setSelectedCategory } = props;
-
-  useEffect(() => {
-    setLoading(true);
-    fetch("https://fakestoreapi.com/products/categories")
-      .then((res) => res.json())
-      .then((res) => {
-        setLoading(false);
-        setProducts(res);
-      })
-      .catch((error) => {
-        setError(true);
-        setLoading(false);
-      });
-  }, []);
+  const { loadError, isLoading, data } = useApi(
+    `https://fakestoreapi.com/products/categories`,
+    []
+  );
 
   function ui() {
     if (isLoading) {
@@ -29,7 +16,7 @@ function CategoryBar(props) {
       return (
         <div className="category-items">
           {!isLoading &&
-            products.map((categoryName) => (
+            data.map((categoryName) => (
               <div
                 key={categoryName}
                 className={

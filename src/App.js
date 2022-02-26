@@ -12,7 +12,7 @@ function App() {
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
-      <ProductList selectedCategory={selectedCategory} />
+      {selectedCategory && <ProductList category={selectedCategory} />}
     </div>
   );
 }
