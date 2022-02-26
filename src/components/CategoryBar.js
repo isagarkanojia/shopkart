@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import useApi from "../hooks/useApi";
+import Loader from "./Loader";
 
 function CategoryBar(props) {
   const { selectedCategory, setSelectedCategory } = props;
@@ -7,9 +9,15 @@ function CategoryBar(props) {
     []
   );
 
+  useEffect(() => {
+    if (data.length > 0) {
+      setSelectedCategory(data[0]);
+    }
+  }, []);
+
   function ui() {
     if (isLoading) {
-      return <div>Loading...</div>;
+      return <Loader />;
     } else if (loadError) {
       return <div>{loadError.message}</div>;
     } else {

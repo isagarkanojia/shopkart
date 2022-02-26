@@ -1,4 +1,6 @@
 import useApi from "../hooks/useApi";
+import Loader from "./Loader";
+import ProductCard from "./ProductCard";
 
 function ProductList(props) {
   const { category } = props;
@@ -9,11 +11,17 @@ function ProductList(props) {
 
   function ui() {
     if (isLoading) {
-      return <div>Loading...</div>;
+      return <Loader />;
     } else if (loadError) {
       return <div>Failed to load products</div>;
     } else if (data.length) {
-      return <div className="product-list">Products: {data.length}</div>;
+      return (
+        <div className="product-list">
+          {data.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      );
     } else {
       return <div>No Products in this category</div>;
     }
