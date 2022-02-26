@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
-function CategoryBar() {
+function CategoryBar(props) {
   const [products, setProducts] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [loadError, setError] = useState(false);
+  const { selectedCategory, setSelectedCategory } = props;
 
   useEffect(() => {
     setLoading(true);
@@ -29,7 +30,14 @@ function CategoryBar() {
         <div className="category-items">
           {!isLoading &&
             products.map((categoryName) => (
-              <div key={categoryName} className="category-item">
+              <div
+                key={categoryName}
+                className={
+                  "category-item" +
+                  (selectedCategory === categoryName ? " selected" : "")
+                }
+                onClick={() => setSelectedCategory(categoryName)}
+              >
                 {categoryName}
               </div>
             ))}
