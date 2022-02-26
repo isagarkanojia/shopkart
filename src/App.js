@@ -1,6 +1,6 @@
 import "./App.css";
+import CategoryBar from "./components/CategoryBar";
 import "./styles.scss";
-import CategoryBar from "./CategoryBar";
 
 function App() {
   return (
