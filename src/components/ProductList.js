@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import CartContext from "../context/cartContext";
+import CartStateContext from "../context/cartStateContext";
 import useApi from "../hooks/useApi";
 import Loader from "./Loader";
 import ProductCard from "./ProductCard";
@@ -11,7 +11,7 @@ function ProductList(props) {
     []
   );
 
-  const { cart } = useContext(CartContext);
+  const cart = useContext(CartStateContext);
 
   function ui() {
     if (isLoading) {

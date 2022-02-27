@@ -1,8 +1,9 @@
 import CategoryBar from "./components/CategoryBar";
 import ProductList from "./components/ProductList";
 import "./App.scss";
-import { useCallback, useState } from "react";
-import CartContext from "./context/cartContext";
+import { useCallback, useMemo, useState } from "react";
+import CartStateContext from "./context/cartStateContext";
+import CartActionsContext from "./context/cartActionsContext";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -46,22 +47,25 @@ function App() {
     });
   }, []);
 
+  const cartActionsContext = useMemo(() => {
+    return {
+      addToCart: addToCart,
+      removeFromCart: removeFromCart,
+    };
+  }, [addToCart, removeFromCart]);
+
   return (
-    <CartContext.Provider
-      value={{
-        cart: cart,
-        addToCart: addToCart,
-        removeFromCart: removeFromCart,
-      }}
-    >
-      <div className="main">
-        <CategoryBar
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-        />
-        {selectedCategory && <ProductList category={selectedCategory} />}
-      </div>
-    </CartContext.Provider>
+    <CartStateContext.Provider value={cart}>
+      <CartActionsContext.Provider value={cartActionsContext}>
+        <div className="main">
+          <CategoryBar
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
+          {selectedCategory && <ProductList category={selectedCategory} />}
+        </div>
+      </CartActionsContext.Provider>
+    </CartStateContext.Provider>
   );
 }
 
