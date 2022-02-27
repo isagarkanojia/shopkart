@@ -1,5 +1,10 @@
+import { useContext } from "react";
+import CartContext from "../context/cartContext";
+
 function AddToCart(props) {
-  const { product, cart, addToCart, removeFromCart } = props;
+  const { product, cart } = props;
+
+  const { addToCart, removeFromCart } = useContext(CartContext);
 
   function add() {
     addToCart(product);

@@ -3,9 +3,7 @@ import AddToCart from "./AddToCart";
 
 function ProductCard(props) {
   const { product } = props;
-  const { cart, addToCart, removeFromCart } = props;
-
-  console.log(`Rendeded`, product.title);
+  const { cart } = props;
   return (
     <div className="product-card">
       <div className="product-image">
@@ -16,12 +14,7 @@ function ProductCard(props) {
       </div>
       <div className="product-buy">
         <div className="product-price">${product.price}</div>
-        <AddToCart
-          product={product}
-          cart={cart}
-          addToCart={addToCart}
-          removeFromCart={removeFromCart}
-        />
+        <AddToCart product={product} cart={cart} />
       </div>
     </div>
   );

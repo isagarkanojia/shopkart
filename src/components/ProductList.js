@@ -1,14 +1,17 @@
+import { useContext } from "react";
+import CartContext from "../context/cartContext";
 import useApi from "../hooks/useApi";
 import Loader from "./Loader";
 import ProductCard from "./ProductCard";
 
 function ProductList(props) {
   const { category } = props;
-  const { cart, addToCart, removeFromCart } = props;
   const { loadError, isLoading, data } = useApi(
     `https://fakestoreapi.com/products/category/${category}`,
     []
   );
+
+  const { cart } = useContext(CartContext);
 
   function ui() {
     if (isLoading) {
@@ -23,8 +26,6 @@ function ProductList(props) {
               key={product.id}
               product={product}
               cart={cart[product.id]}
-              addToCart={addToCart}
-              removeFromCart={removeFromCart}
             />
           ))}
         </div>

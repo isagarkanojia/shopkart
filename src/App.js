@@ -2,6 +2,7 @@ import CategoryBar from "./components/CategoryBar";
 import ProductList from "./components/ProductList";
 import "./App.scss";
 import { useCallback, useState } from "react";
+import CartContext from "./context/cartContext";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -46,20 +47,21 @@ function App() {
   }, []);
 
   return (
-    <div className="main">
-      <CategoryBar
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-      />
-      {selectedCategory && (
-        <ProductList
-          category={selectedCategory}
-          cart={cart}
-          addToCart={addToCart}
-          removeFromCart={removeFromCart}
+    <CartContext.Provider
+      value={{
+        cart: cart,
+        addToCart: addToCart,
+        removeFromCart: removeFromCart,
+      }}
+    >
+      <div className="main">
+        <CategoryBar
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
         />
-      )}
-    </div>
+        {selectedCategory && <ProductList category={selectedCategory} />}
+      </div>
+    </CartContext.Provider>
   );
 }
 
