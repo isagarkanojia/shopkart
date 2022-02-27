@@ -1,13 +1,15 @@
 import { useContext } from "react";
+import { useParams } from "react-router-dom";
 import CartStateContext from "../context/cartStateContext";
 import useApi from "../hooks/useApi";
 import Loader from "./Loader";
 import ProductCard from "./ProductCard";
 
-function ProductList(props) {
-  const { category } = props;
+function ProductList() {
+  const { categoryId } = useParams();
+
   const { loadError, isLoading, data } = useApi(
-    `https://fakestoreapi.com/products/category/${category}`,
+    `https://fakestoreapi.com/products/category/${categoryId}`,
     []
   );
 

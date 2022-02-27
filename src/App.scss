@@ -32,11 +32,14 @@ body {
   white-space: nowrap;
   text-transform: capitalize;
   cursor: pointer;
-
-  &.selected {
-    color: #ffe500;
-  }
+  color: white;
+  text-decoration: none;
 }
+
+.selected {
+  color: #ffe500;
+}
+
 .product-list {
   flex: 1 0 0;
   overflow: auto;

@@ -4,6 +4,7 @@ import "./App.scss";
 import { useCallback, useMemo, useState } from "react";
 import CartStateContext from "./context/cartStateContext";
 import CartActionsContext from "./context/cartActionsContext";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -55,17 +56,20 @@ function App() {
   }, [addToCart, removeFromCart]);
 
   return (
-    <CartStateContext.Provider value={cart}>
-      <CartActionsContext.Provider value={cartActionsContext}>
-        <div className="main">
-          <CategoryBar
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-          />
-          {selectedCategory && <ProductList category={selectedCategory} />}
-        </div>
-      </CartActionsContext.Provider>
-    </CartStateContext.Provider>
+    <BrowserRouter>
+      <CartStateContext.Provider value={cart}>
+        <CartActionsContext.Provider value={cartActionsContext}>
+          <div className="main">
+            <CategoryBar />
+            <Routes>
+              <Route path="/category/:categoryId" element={<ProductList />} />
+              <Route path="/" element={<ProductList />} />
+            </Routes>
+            {/* {selectedCategory && <ProductList category={selectedCategory} />} */}
+          </div>
+        </CartActionsContext.Provider>
+      </CartStateContext.Provider>
+    </BrowserRouter>
   );
 }
 
