@@ -5,6 +5,37 @@ import { useState } from "react";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [cart, setCart] = useState({});
+
+  function addToCart(product) {
+    const newCart = { ...cart };
+    if (newCart[product.id]) {
+      newCart[product.id].quantity += 1;
+    } else {
+      newCart[product.id] = {
+        title: product.title,
+        quantity: 1,
+        price: product.price,
+        id: product.id,
+      };
+    }
+
+    setCart(newCart);
+  }
+
+  function removeFromCart(product) {
+    if (cart[product.id] == false) {
+      return;
+    }
+
+    if (cart[product.id].quantity === 1) {
+      delete cart[product.id];
+    } else {
+      cart[product.id].quantity -= 1;
+    }
+
+    setCart(cart);
+  }
 
   return (
     <div className="main">
@@ -12,7 +43,14 @@ function App() {
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
-      {selectedCategory && <ProductList category={selectedCategory} />}
+      {selectedCategory && (
+        <ProductList
+          category={selectedCategory}
+          cart={cart}
+          addToCart={addToCart}
+          removeFromCart={removeFromCart}
+        />
+      )}
     </div>
   );
 }
