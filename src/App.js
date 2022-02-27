@@ -24,17 +24,19 @@ function App() {
   }
 
   function removeFromCart(product) {
-    if (cart[product.id] == false) {
+    const newCart = { ...cart };
+
+    if (newCart[product.id] === false) {
       return;
     }
 
-    if (cart[product.id].quantity === 1) {
-      delete cart[product.id];
+    if (newCart[product.id].quantity === 1) {
+      delete newCart[product.id];
     } else {
-      cart[product.id].quantity -= 1;
+      newCart[product.id].quantity -= 1;
     }
 
-    setCart(cart);
+    setCart(newCart);
   }
 
   return (

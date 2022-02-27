@@ -1,18 +1,30 @@
 function AddToCart(props) {
   const { product, cart, addToCart, removeFromCart } = props;
 
+  function add() {
+    addToCart(product);
+  }
+
+  function remove() {
+    removeFromCart(product);
+  }
+
   if (cart && cart.quantity > 0) {
     console.log(cart, "if");
     return (
       <div className="product-control">
-        <button className="product-add">+</button>
+        <button onClick={remove} className="product-add">
+          -
+        </button>
         <div className="product-quantity">{cart.quantity}</div>
-        <button className="product-add">-</button>
+        <button onClick={add} className="product-add">
+          +
+        </button>
       </div>
     );
   } else {
     return (
-      <button onClick={() => addToCart(product)} className="product-add">
+      <button onClick={add} className="product-add">
         Add to cart
       </button>
     );
