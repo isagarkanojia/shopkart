@@ -1,9 +1,11 @@
+import { memo } from "react";
 import AddToCart from "./AddToCart";
 
 function ProductCard(props) {
   const { product } = props;
   const { cart, addToCart, removeFromCart } = props;
 
+  console.log(`Rendeded`, product.title);
   return (
     <div className="product-card">
       <div className="product-image">
@@ -25,4 +27,4 @@ function ProductCard(props) {
   );
 }
 
-export default ProductCard;
+export default memo(ProductCard);

@@ -10,7 +10,6 @@ function AddToCart(props) {
   }
 
   if (cart && cart.quantity > 0) {
-    console.log(cart, "if");
     return (
       <div className="product-control">
         <button onClick={remove} className="product-add">
