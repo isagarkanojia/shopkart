@@ -1,4 +1,4 @@
-FROM node as development
+FROM node:14-bullseye as development
 ENV NODE_ENV development
 WORKDIR /app
 COPY package.json .
